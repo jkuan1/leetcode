@@ -1,0 +1,31 @@
+// DFS Implementation 71ms runtime, 59.9MB storage
+
+/**
+ * @param {character[][]} grid
+ * @return {number}
+ */
+var numIslands = function(grid) {
+
+    let islandCounter = 0
+
+    var DFS = function(x, y) {
+        grid[x][y] = 0;
+
+        if(x != 0 && grid[x-1][y] == 1) DFS( x-1,y)
+        if (y != 0 && grid[x][y-1] == 1) DFS( x, y -1)
+        if (x != grid.length - 1 && grid[x+1][y] == 1) DFS(x + 1, y)
+        if (y != grid[x].length - 1 && grid[x][y+1] == 1) DFS(x, y + 1)
+    }
+    
+    for(let x = 0; x < grid.length; x++){
+        for(let y = 0; y < grid[x].length; y++) {
+            if (grid[x][y] == 1) {
+                islandCounter += 1
+                DFS(x, y)
+            }
+        }
+    }
+
+    return islandCounter
+};
+
